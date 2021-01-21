@@ -11,12 +11,14 @@
         <module name="mingrui-shopcommon-core" />
         <module name="mingrui-shop-basiczuul-server" />
         <module name="mingrui-shop-servicexxx" />
+        <module name="mingrui-shop-basic-uploadserver" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mingrui-shop-basic-eureka-service" options="-parameters" />
+      <module name="mingrui-shop-basic-uploadserver" options="-parameters" />
       <module name="mingrui-shop-basics" options="-parameters" />
       <module name="mingrui-shop-basiczuul-server" options="-parameters" />
       <module name="mingrui-shop-commoms" options="-parameters" />
