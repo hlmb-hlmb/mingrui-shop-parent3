@@ -37,4 +37,8 @@ public interface BrandService {
     @PostMapping(value = "brand/save")
     Result<JsonObject> saveBrandInfo(@Validated({MingruiOperation.Add.class}) @RequestBody BrandDTO brandDTO);
 
+    @ApiOperation(value = "修改品牌")
+    @PutMapping(value = "brand/save")
+    Result<JsonObject> editBrandInfo(@Validated({MingruiOperation.Update.class}) @RequestBody BrandDTO brandDTO);
+
 }

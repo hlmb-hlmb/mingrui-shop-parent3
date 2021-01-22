@@ -39,6 +39,17 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     private CategoryBrandMapper categoryBrandMapper;
 
     @Override
+    public Result<JsonObject> editBrandInfo(BrandDTO brandDTO) {
+        BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDTO, BrandEntity.class);
+        brandEntity.setLetter(PinYinUtil.getUpperCase(String.valueOf(brandEntity.getName().toCharArray()[0]), false).toCharArray()[0]);
+        brandMapper.updateByPrimaryKeySelective(brandEntity);
+
+        this.deleteCategoryBrandId(brandEntity.getId());
+        this.insertCategoryBrandList(brandDTO.getCategories(),brandEntity.getId());
+        return this.setResultSuccess();
+    }
+
+    @Override
     public Result<JsonObject> saveBrandInfo(BrandDTO brandDTO) {
         BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDTO, BrandEntity.class);
         brandEntity.setLetter(PinYinUtil.getUpperCase(String.valueOf(brandEntity.getName().toCharArray()[0]),false).toCharArray()[0]);
@@ -74,6 +85,12 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
         List<BrandEntity> brandEntityList = brandMapper.selectByExample(example);
         PageInfo<BrandEntity> pageInfo = new PageInfo<>(brandEntityList);
         return this.setResultSuccess(pageInfo);
+    }
+    //提取删除重复代码
+    private void deleteCategoryBrandId(Integer brandId){
+        Example example = new Example(CategoryBrandEntity.class);
+        example.createCriteria().andEqualTo("brandId",brandId);
+        categoryBrandMapper.deleteByExample(example);
     }
     //提取新增重复代码
     private void insertCategoryBrandList(String categories, Integer brandId) {
