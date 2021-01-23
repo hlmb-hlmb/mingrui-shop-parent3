@@ -38,6 +38,15 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     @Resource
     private CategoryBrandMapper categoryBrandMapper;
 
+
+    @Override
+    public Result<JsonObject> deleteBrandInfo(Integer id) {
+        brandMapper.deleteByPrimaryKey(id);
+
+        this.deleteCategoryBrandId(id);
+        return this.setResultSuccess();
+    }
+
     @Override
     public Result<JsonObject> editBrandInfo(BrandDTO brandDTO) {
         BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDTO, BrandEntity.class);
