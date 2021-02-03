@@ -18,7 +18,10 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryBrandEntity {
+
     private Integer categoryId;
 
     private  Integer brandId;
+
 }
+
